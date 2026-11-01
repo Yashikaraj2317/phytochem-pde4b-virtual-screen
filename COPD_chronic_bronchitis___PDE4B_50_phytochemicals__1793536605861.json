@@ -1,0 +1,103 @@
+{
+  "version": "1.0",
+  "workflowId": "b0651b25-5132-484e-8ee1-6a74f522e7b7",
+  "workflowName": "COPD chronic bronchitis — PDE4B 50 phytochemicals + roflumilast",
+  "nodes": [
+    {
+      "id": "pde4b_screen",
+      "type": "module",
+      "module_id": "docking",
+      "model_id": "autodock-vina",
+      "inputs": {
+        "receptor": {
+          "__file__": true,
+          "uri": "s3://dev-vecura-workflow/agent-downloads/01fb60e0-321b-45d0-99da-e46a762ed1dd/f8db9132/PDE4B_1XMU_A_prepared.pdb",
+          "name": "PDE4B_1XMU_A_prepared.pdb"
+        },
+        "compounds": {
+          "__file__": true,
+          "uri": "s3://dev-vecura-workflow/agent-downloads/01fb60e0-321b-45d0-99da-e46a762ed1dd/9fe52ff9/docking_inputs_xanthines.csv",
+          "name": "docking_inputs_xanthines.csv"
+        }
+      },
+      "config": {
+        "center_x": 2.335346153846154,
+        "center_y": 0.7253461538461539,
+        "center_z": 41.71092307692307,
+        "size_x": 28,
+        "size_y": 28,
+        "size_z": 28,
+        "num_modes": 9,
+        "search_depth": 32,
+        "binding_score_max": null
+      },
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "data": {
+        "nodeType": "docking",
+        "label": "PDE4B: theophylline + caffeine weak references",
+        "icon": "link",
+        "color": "orange",
+        "inputs": [
+          {
+            "id": "receptor",
+            "name": "Receptor",
+            "type": "structure",
+            "required": true,
+            "description": "Protein receptor to dock the small-molecule ligands against (the target for vina, gnina, diffdock, sigmadock, smina, pandadock, surfdock, flowdock, dynamicbind).\n",
+            "tooltip": "Protein receptor to dock the small-molecule ligands against (the target for vina, gnina, diffdock, sigmadock, smina, pandadock, surfdock, flowdock, dynamicbind).\n",
+            "expectedStandardType": "PROTEIN_STRUCTURE",
+            "providedStandardType": "PROTEIN_STRUCTURE"
+          },
+          {
+            "id": "compounds",
+            "name": "Compounds",
+            "type": "array",
+            "required": true,
+            "description": "Small-molecule ligands to dock against the receptor (at least one). Every docking model requires this — the adapters raise in prepare() on an empty list.\n",
+            "tooltip": "Small-molecule ligands to dock against the receptor (at least one). Every docking model requires this — the adapters raise in prepare() on an empty list.\n",
+            "expectedStandardType": "COMPOUND",
+            "providedStandardType": "COMPOUND"
+          },
+          {
+            "id": "pocket",
+            "name": "Pocket",
+            "type": "array",
+            "required": false,
+            "description": "Predicted binding pocket(s) used to focus the docking search box. Optional — when omitted, each model falls back to its config-specified box (manual center/size) or runs blind docking (flowdock, dynamicbind, surfdock).\n",
+            "tooltip": "Predicted binding pocket(s) used to focus the docking search box. Optional — when omitted, each model falls back to its config-specified box (manual center/size) or runs blind docking (flowdock, dynamicbind, surfdock).\n",
+            "expectedStandardType": "POCKET",
+            "providedStandardType": "POCKET"
+          }
+        ],
+        "outputs": [
+          {
+            "id": "poses",
+            "name": "Poses",
+            "type": "array",
+            "required": true,
+            "expectedStandardType": "DOCKED_STRUCTURE",
+            "providedStandardType": "DOCKED_STRUCTURE"
+          },
+          {
+            "id": "compounds",
+            "name": "Compounds",
+            "type": "array",
+            "required": false,
+            "expectedStandardType": "COMPOUND",
+            "providedStandardType": "COMPOUND"
+          }
+        ],
+        "outputStandardTypes": [
+          "DOCKED_STRUCTURE",
+          "COMPOUND"
+        ],
+        "status": "idle"
+      }
+    }
+  ],
+  "edges": [],
+  "exportedAt": "2026-11-01T12:36:45.862Z"
+}
